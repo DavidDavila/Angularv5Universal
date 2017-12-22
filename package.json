@@ -4,8 +4,8 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "run-s build:client build:aot build:server",
+    "start": "ng serve --port 3000",
+    "build": "run-s build:client build:aot build:server && node dist/server.js",
     "build:client": "ng build -prod --build-optimizer --app 0",
     "build:aot": "ng build --aot --app 1",
     "build:server": "webpack -p",
