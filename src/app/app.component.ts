@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+
 import { HttpClient } from '@angular/common/http';
 import { TransferState, makeStateKey, Meta, Title } from '@angular/platform-browser';
+
+import { NgRedux, select } from '@angular-redux/store';
+import { CounterActions } from './../actions/app.actions'; 
+import {IAppState} from "../store/store"; 
 
 const DOGS_KEY = makeStateKey('dogs');
 
@@ -15,11 +21,15 @@ export class AppComponent implements OnInit {
 
   dogs: any;
 
+  @select() readonly count$: Observable<number>;
+
   constructor(
     private http: HttpClient,
     private state: TransferState,
-    meta: Meta, 
-    title: Title
+    public meta: Meta, 
+    public title: Title,
+    private ngRedux: NgRedux<IAppState>,
+    private actions: CounterActions
   ) { 
   	title.setTitle('Blogist');
 
@@ -41,5 +51,12 @@ export class AppComponent implements OnInit {
           this.state.set(DOGS_KEY, data as any);
         });
     }
+  }
+  increment() {
+    this.ngRedux.dispatch(this.actions.increment());
+  }
+
+  decrement() {
+    this.ngRedux.dispatch(this.actions.decrement());
   }
 }

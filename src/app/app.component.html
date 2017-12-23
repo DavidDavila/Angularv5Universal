@@ -1,6 +1,11 @@
-<div style="text-align:center">
+<div>
   <h1>
     Welcome to {{title}}!
   </h1>
 </div>
+  Count: {{ count$ | async }}
+  <button (click)="increment()">+</button>
+  <button (click)="decrement()">-</button>
+
+
 <pre>{{ dogs | json}}</pre>
