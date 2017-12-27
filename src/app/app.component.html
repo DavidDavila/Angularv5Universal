@@ -1,11 +1,13 @@
-<div>
-  <h1>
-    Welcome to {{title}}!
-  </h1>
-</div>
+  <a [routerLink]="['/']">Home</a>
+  <a [routerLink]="['/about']">About</a>
+  <br>
+  <br>
+  Name:<input (blur)="changeName(name.value)" #name [value]="name$ | async" /> <button (click)="deleteName()">X</button>
+  <br>
   Count: {{ count$ | async }}
   <button (click)="increment()">+</button>
   <button (click)="decrement()">-</button>
 
+<router-outlet></router-outlet>
 
-<pre>{{ dogs | json}}</pre>
+<pre>{{ dogs$ | async | json}}</pre>

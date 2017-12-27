@@ -1,20 +1,23 @@
-import { Action } from 'redux';
-import { CounterActions } from '../actions/app.actions';
+import { combineReducers } from 'redux';
+import { routerReducer } from '@angular-redux/router';
+import { CounterReducer, NameReducer, DogsReducer} from './../reducers/';
 
 export interface IAppState {
   count: number;
+  name: string;
+  dogs: any;
 }
 
 export const INITIAL_STATE: IAppState = {
   count: 0,
+  name: 'david',
+  dogs: {}
 };
 
-export function rootReducer(lastState: IAppState, action: Action): IAppState {
-  switch(action.type) {
-    case CounterActions.INCREMENT: return { count: lastState.count + 1 };
-    case CounterActions.DECREMENT: return { count: lastState.count - 1 };
-  }
 
-  // We don't care about any other actions right now.
-  return lastState;
-}
+export const rootReducer = combineReducers<IAppState>({
+	count: CounterReducer,
+	name: NameReducer,
+	dogs: DogsReducer,
+  router: routerReducer
+});
