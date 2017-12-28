@@ -6,7 +6,7 @@ import {TranslateModule, TranslateLoader, } from '@ngx-translate/core';
 import {TranslateHttpLoader, } from '@ngx-translate/http-loader';
 import {TranslateService} from '@ngx-translate/core';
 import { AppComponent } from './app.component';
-
+import { CustomTranslateLoader } from './translate.server.service'
 export function HttpLoaderFactory(http: any) {
     return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
 }
@@ -19,13 +19,12 @@ export function HttpLoaderFactory(http: any) {
     BrowserModule.withServerTransition({ appId: 'universal-demo-v5' }),
     HttpClientModule,
     BrowserTransferStateModule,
-     TranslateModule.forRoot({
-          loader: {
-              provide: TranslateLoader,
-              useFactory: HttpLoaderFactory,
-              deps: [HttpClient]
-          }
-      }),  
+    TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useClass: CustomTranslateLoader
+            }
+        }),
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 
 import {TranslateModule, TranslateLoader, } from '@ngx-translate/core';
 import {TranslateHttpLoader, } from '@ngx-translate/http-loader';
+import { CustomTranslateLoader } from './translate.server.service';
 
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 
@@ -19,7 +20,12 @@ export function HttpLoaderFactory(http: any) {
     AppModule,
     ServerModule,
     ServerTransferStateModule,
-    TranslateModule.forRoot(),  
+    TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useClass: CustomTranslateLoader
+            }
+        }),
   ],
   bootstrap: [AppComponent],
 })
