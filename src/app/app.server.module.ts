@@ -4,11 +4,22 @@ import { ServerModule, ServerTransferStateModule } from '@angular/platform-serve
 import { AppModule } from './app.module';
 import { AppComponent } from './app.component';
 
+import {TranslateModule, TranslateLoader, } from '@ngx-translate/core';
+import {TranslateHttpLoader, } from '@ngx-translate/http-loader';
+
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+
+
+export function HttpLoaderFactory(http: any) {
+    return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
+}
+
 @NgModule({
   imports: [
     AppModule,
     ServerModule,
-    ServerTransferStateModule
+    ServerTransferStateModule,
+    TranslateModule.forRoot(),  
   ],
   bootstrap: [AppComponent],
 })
